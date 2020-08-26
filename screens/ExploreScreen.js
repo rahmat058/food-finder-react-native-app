@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Image, Text, StyleSheet} from 'react-native';
-import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
-import { markers, mapDarkStyle, mapStandardStyle } from '../model/mapData';
+import MapView, {PROVIDER_GOOGLE, Marker, Callout} from 'react-native-maps';
+import {markers, mapDarkStyle, mapStandardStyle} from '../model/mapData';
 
-import { useTheme } from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 
 const ExploreScreen = () => {
   const theme = useTheme();
@@ -12,7 +12,7 @@ const ExploreScreen = () => {
     <MapView
       provider={PROVIDER_GOOGLE}
       style={styles.map}
-      customMapStyle={ theme.dark ? mapDarkStyle : mapStandardStyle }
+      customMapStyle={theme.dark ? mapDarkStyle : mapStandardStyle}
       region={{
         latitude: 37.78825,
         longitude: -122.4324,
@@ -28,22 +28,20 @@ const ExploreScreen = () => {
         title="This is test title"
         description="This is test description">
         <Callout tooltip>
-          <View>
+          <React.Fragment>
             <View style={styles.bubble}>
-              <View>
-                <Text style={styles.name}>Favourite Name</Text>
-                {/* <Text>A short description</Text> */}
-              </View>
+              <Text style={styles.name}>Favourite Name</Text>
+              <Text>A short description</Text>
               <Text>
                 <Image
-                  style={styles.image}
                   source={require('../assets/banners/food-banner1.jpg')}
+                  style={styles.image}
                 />
               </Text>
             </View>
             <View style={styles.arrowBorder} />
             <View style={styles.arrow} />
-          </View>
+          </React.Fragment>
         </Callout>
       </Marker>
     </MapView>
@@ -87,6 +85,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 120,
-    height: 120,
+    height: 100,
+    resizeMode: 'cover',
   },
 });
