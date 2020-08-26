@@ -1,4 +1,3 @@
-import 'react-native-gesture-handler';
 import React, {useEffect} from 'react';
 import {View, ActivityIndicator} from 'react-native';
 import {

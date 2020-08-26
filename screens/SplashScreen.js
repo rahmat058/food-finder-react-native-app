@@ -18,7 +18,7 @@ const SplashScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#009387" barStyle="light-content" />
+      <StatusBar backgroundColor="#FF6347" barStyle="light-content" />
       <View style={styles.header}>
         <Animatable.Image
           animation="bounceIn"
@@ -43,13 +43,13 @@ const SplashScreen = ({navigation}) => {
               color: colors.text,
             },
           ]}>
-          Stay connected with everyone!
+          Find best food in your locality!
         </Text>
         <Text style={styles.text}>Sign in with account</Text>
         <View style={styles.button}>
           <TouchableOpacity onPress={() => navigation.navigate('SignInScreen')}>
             <LinearGradient
-              colors={['#08d4c4', '#01ab9d']}
+              colors={['#FFA07A', '#FF6347']}
               style={styles.signIn}>
               <Text style={styles.textSign}>Get Started</Text>
               <MaterialIcons name="navigate-next" color="#fff" size={20} />
@@ -69,7 +69,7 @@ const height_logo = height * 0.28;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#009387',
+    backgroundColor: '#FF6347',
   },
   header: {
     flex: 2,
