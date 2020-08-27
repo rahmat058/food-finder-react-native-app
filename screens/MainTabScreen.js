@@ -11,12 +11,12 @@ import NotificationScreen from './NotificationScreen';
 import ExploreScreen from './ExploreScreen';
 import ProfileScreen from './ProfileScreen';
 import EditProfileScreen from './EditProfileScreen';
+import CardListScreen from './CardListScreen';
+import CardItemDetails from './CardItemDetails';
 
 import {useTheme, Avatar} from 'react-native-paper';
 import {View} from 'react-native-animatable';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-// import CardListScreen from './CardListScreen';
-// import CardItemDetails from './CardItemDetails';
 
 const HomeStack = createStackNavigator();
 const NotificationStack = createStackNavigator();
@@ -132,7 +132,7 @@ const HomeStackScreen = ({navigation}) => {
           ),
         }}
       />
-      {/* <HomeStack.Screen
+      <HomeStack.Screen
         name="CardListScreen"
         component={CardListScreen}
         options={({route}) => ({
@@ -150,7 +150,7 @@ const HomeStackScreen = ({navigation}) => {
           headerTransparent: true,
           headerTintColor: '#fff',
         })}
-      /> */}
+      />
     </HomeStack.Navigator>
   );
 };
