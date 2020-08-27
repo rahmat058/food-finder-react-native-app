@@ -1,22 +1,27 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {useTheme} from 'react-native-paper';
-
 import HomeScreen from './HomeScreen';
-import DetailsScreen from './DetailsScreen';
+import NotificationScreen from './NotificationScreen';
 import ExploreScreen from './ExploreScreen';
 import ProfileScreen from './ProfileScreen';
 import EditProfileScreen from './EditProfileScreen';
-import NotificationScreen from './NotificationScreen';
+
+import {useTheme, Avatar} from 'react-native-paper';
+import {View} from 'react-native-animatable';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+// import CardListScreen from './CardListScreen';
+// import CardItemDetails from './CardItemDetails';
 
 const HomeStack = createStackNavigator();
-const DetailsStack = createStackNavigator();
+const NotificationStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
+
 const Tab = createMaterialBottomTabNavigator();
 
 const MainTabScreen = () => (
@@ -70,33 +75,85 @@ const MainTabScreen = () => (
 
 export default MainTabScreen;
 
-const HomeStackScreen = ({navigation}) => (
-  <HomeStack.Navigator
-    screenOptions={{
-      headerStyle: {
-        backgroundColor: '#FF6347',
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
-    }}>
-    <HomeStack.Screen
-      name="Home"
-      component={HomeScreen}
-      options={{
-        headerLeft: () => (
-          <Icon.Button
-            name="ios-menu"
-            size={25}
-            backgroundColor="#FF6347"
-            onPress={() => navigation.openDrawer()}
-          />
-        ),
-      }}
-    />
-  </HomeStack.Navigator>
-);
+const HomeStackScreen = ({navigation}) => {
+  const {colors} = useTheme();
+  return (
+    <HomeStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: colors.background,
+          shadowColor: colors.background, // iOS
+          elevation: 0, // Android
+        },
+        headerTintColor: colors.text,
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}>
+      <HomeStack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          title: 'FoodFinder',
+          headerLeft: () => (
+            <View style={{marginLeft: 10}}>
+              <Icon.Button
+                name="ios-menu"
+                size={25}
+                color={colors.text}
+                backgroundColor={colors.background}
+                onPress={() => navigation.openDrawer()}
+              />
+            </View>
+          ),
+          headerRight: () => (
+            <View style={{flexDirection: 'row', marginRight: 10}}>
+              <Icon.Button
+                name="ios-search"
+                size={25}
+                color={colors.text}
+                backgroundColor={colors.background}
+                onPress={() => {}}
+              />
+              <TouchableOpacity
+                style={{paddingHorizontal: 10, marginTop: 5}}
+                onPress={() => {
+                  navigation.navigate('Profile');
+                }}>
+                <Avatar.Image
+                  source={{
+                    uri:
+                      'https://api.adorable.io/avatars/80/abott@adorable.png',
+                  }}
+                  size={30}
+                />
+              </TouchableOpacity>
+            </View>
+          ),
+        }}
+      />
+      {/* <HomeStack.Screen
+        name="CardListScreen"
+        component={CardListScreen}
+        options={({route}) => ({
+          title: route.params.title,
+          headerBackTitleVisible: false,
+        })}
+      />
+      <HomeStack.Screen
+        name="CardItemDetails"
+        component={CardItemDetails}
+        options={({route}) => ({
+          // title: route.params.title,
+          headerBackTitleVisible: false,
+          headerTitle: false,
+          headerTransparent: true,
+          headerTintColor: '#fff',
+        })}
+      /> */}
+    </HomeStack.Navigator>
+  );
+};
 
 const DetailsStackScreen = ({navigation}) => (
   <DetailsStack.Navigator
