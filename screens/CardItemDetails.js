@@ -25,7 +25,6 @@ const CardItemDetails = ({route}) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
       <HeaderImageScrollView
         maxHeight={MAX_HEIGHT}
         minHeight={MIN_HEIGHT}
