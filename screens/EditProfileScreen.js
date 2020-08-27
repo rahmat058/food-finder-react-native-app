@@ -26,21 +26,58 @@ const EditProfileScreen = () => {
   );
   const {colors} = useTheme();
 
+  bottomSheetRef = React.createRef();
+  fallAnimatedValue = new Animated.Value(1);
+
+  const takePhotoFromCamera = () => {
+    ImagePicker.openCamera({
+      compressImageMaxWidth: 300,
+      compressImageMaxHeight: 300,
+      cropping: true,
+      compressImageQuality: 0.7,
+    })
+      .then((image) => {
+        console.log(image);
+        setImage(image.path);
+        this.bottomSheetRef.current.snapTo(1);
+      })
+      .catch((err) => console.log('err: ', err));
+  };
+
+  const choosePhotoFromLibrary = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 300,
+      cropping: true,
+      compressImageQuality: 0.7,
+    })
+      .then((image) => {
+        console.log(image);
+        setImage(image.path);
+        this.bottomSheetRef.current.snapTo(1);
+      })
+      .catch((err) => console.log('err: ', err));
+  };
+
   const renderInner = () => (
     <View style={styles.panel}>
       <View style={{alignItems: 'center'}}>
         <Text style={styles.panelTitle}>Upload Photo</Text>
         <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
       </View>
-      <TouchableOpacity style={styles.panelButton} onPress={() => {}}>
+      <TouchableOpacity
+        style={styles.panelButton}
+        onPress={takePhotoFromCamera}>
         <Text style={styles.panelButtonTitle}>Take Photo</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.panelButton} onPress={() => {}}>
+      <TouchableOpacity
+        style={styles.panelButton}
+        onPress={choosePhotoFromLibrary}>
         <Text style={styles.panelButtonTitle}>Choose From Library</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.panelButton}
-        onPress={() => _bsRef.current.snapTo(1)}>
+        onPress={() => this.bottomSheetRef.current.snapTo(1)}>
         <Text style={styles.panelButtonTitle}>Cancel</Text>
       </TouchableOpacity>
     </View>
@@ -54,29 +91,30 @@ const EditProfileScreen = () => {
     </View>
   );
 
-  const _bsRef = React.createRef();
-  const _fall = new Animated.Value(1);
-
   return (
     <ScrollView>
       <View style={styles.container}>
         <BottomSheet
-          ref={_bsRef}
+          ref={this.bottomSheetRef}
           snapPoints={[385, 0]}
           renderContent={renderInner}
           renderHeader={renderHeader}
           initialSnap={1}
-          callbackNode={_fall}
+          callbackNode={this.fallAnimatedValue}
           enabledGestureInteraction={true}
         />
 
         <Animated.View
           style={{
             margin: 20,
-            opacity: Animated.add(0.2, Animated.multiply(_fall, 1.0)),
+            opacity: Animated.add(
+              0.2,
+              Animated.multiply(this.fallAnimatedValue, 1.0),
+            ),
           }}>
           <View style={{alignItems: 'center'}}>
-            <TouchableOpacity onPress={() => _bsRef.current.snapTo(0)}>
+            <TouchableOpacity
+              onPress={() => this.bottomSheetRef.current.snapTo(0)}>
               <View
                 style={{
                   height: 100,
@@ -87,8 +125,7 @@ const EditProfileScreen = () => {
                 }}>
                 <ImageBackground
                   source={{
-                    uri:
-                      'https://api.adorable.io/avatars/80/abott@adorable.png',
+                    uri: image,
                   }}
                   style={{height: 100, width: 100}}
                   imageStyle={{borderRadius: 15}}>
