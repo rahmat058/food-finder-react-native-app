@@ -3,14 +3,19 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import {useTheme} from 'react-native-paper';
 
 import HomeScreen from './HomeScreen';
 import DetailsScreen from './DetailsScreen';
 import ExploreScreen from './ExploreScreen';
 import ProfileScreen from './ProfileScreen';
+import EditProfileScreen from './EditProfileScreen';
 
 const HomeStack = createStackNavigator();
 const DetailsStack = createStackNavigator();
+const ProfileStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const MainTabScreen = () => (
@@ -39,7 +44,7 @@ const MainTabScreen = () => (
     />
     <Tab.Screen
       name="Profile"
-      component={ProfileScreen}
+      component={ProfileStackScreen}
       options={{
         tabBarLabel: 'Profile',
         tabBarColor: '#694fad',
@@ -84,7 +89,8 @@ const HomeStackScreen = ({navigation}) => (
             name="ios-menu"
             size={25}
             backgroundColor="#FF6347"
-            onPress={() => navigation.openDrawer()}></Icon.Button>
+            onPress={() => navigation.openDrawer()}
+          />
         ),
       }}
     />
@@ -112,9 +118,60 @@ const DetailsStackScreen = ({navigation}) => (
             name="ios-menu"
             size={25}
             backgroundColor="#1f65ff"
-            onPress={() => navigation.openDrawer()}></Icon.Button>
+            onPress={() => navigation.openDrawer()}
+          />
         ),
       }}
     />
   </DetailsStack.Navigator>
 );
+
+const ProfileStackScreen = ({navigation}) => {
+  const {colors} = useTheme();
+
+  return (
+    <ProfileStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: colors.background,
+          shadowColor: colors.background, // only for ios
+          elevation: 0, // only for android
+        },
+        headerTintColor: colors.text,
+      }}>
+      <ProfileStack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          title: '',
+          headerLeft: () => (
+            <Icon.Button
+              name="ios-menu"
+              size={25}
+              backgroundColor={colors.background}
+              color={colors.text}
+              onPress={() => navigation.openDrawer()}
+            />
+          ),
+          headerRight: () => (
+            <MaterialCommunityIcon.Button
+              name="account-edit"
+              size={25}
+              backgroundColor={colors.background}
+              color={colors.text}
+              onPress={() => navigation.navigate('EditProfile')}
+            />
+          ),
+        }}
+      />
+
+      <ProfileStack.Screen
+        name="EditProfile"
+        component={EditProfileScreen}
+        options={{
+          title: 'Edit Profile',
+        }}
+      />
+    </ProfileStack.Navigator>
+  );
+};
