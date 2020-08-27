@@ -12,6 +12,7 @@ import DetailsScreen from './DetailsScreen';
 import ExploreScreen from './ExploreScreen';
 import ProfileScreen from './ProfileScreen';
 import EditProfileScreen from './EditProfileScreen';
+import NotificationScreen from './NotificationScreen';
 
 const HomeStack = createStackNavigator();
 const DetailsStack = createStackNavigator();
@@ -33,7 +34,7 @@ const MainTabScreen = () => (
     />
     <Tab.Screen
       name="Notifications"
-      component={DetailsStackScreen}
+      component={NotificationScreen}
       options={{
         tabBarLabel: 'Notifications',
         tabBarColor: '#1f65ff',
@@ -112,7 +113,7 @@ const DetailsStackScreen = ({navigation}) => (
       name="Details"
       component={DetailsScreen}
       options={{
-        title: 'Details Title',
+        title: 'Details',
         headerLeft: () => (
           <Icon.Button
             name="ios-menu"

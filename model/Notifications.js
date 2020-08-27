@@ -22,12 +22,12 @@ export default Notifications = [
     {
         id: 5,
         title: 'Money added to your wallet',
-        details: '₹ 1,000/- has been added to your wallet successfully and remaining balance is ₹ 1,150/-'
+        details: '৳ 1,000/- has been added to your wallet successfully and remaining balance is ৳ 1,150/-'
     },
     {
         id: 6,
         title: 'Add money to your wallet',
-        details: 'Only ₹ 150/- is left in your wallet. Add some more amount to place your order quickly.'
+        details: 'Only ৳ 150/- is left in your wallet. Add some more amount to place your order quickly.'
     },
     {
         id: 7,
